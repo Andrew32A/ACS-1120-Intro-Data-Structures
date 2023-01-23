@@ -32,10 +32,10 @@ def frequency(word, histogram):
     prints value of key that was put in as an argument
     '''
     try:
-        print(f"The word {word} appears {histogram[word]} times in the source text")
+        print(f"The word {word} appeared {histogram[word]} time(s) in the source text")
     
     except:
-        print(f"The word {word} appears 0 times in the source text")
+        print(f"The word {word} appeared 0 times in the source text")
 
 if __name__ == "__main__":
     histogram(source_text)
