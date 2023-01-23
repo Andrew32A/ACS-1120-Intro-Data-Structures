@@ -15,12 +15,17 @@ def histogram(source_text):
         print(f"{word}: {number}")
 
 def unique_words(histogram):
-    print(f"There are {len(histogram_storage)} unique words in the source text.")
+    print(f"There are {len(histogram)} unique words in the source text")
 
 def frequency(word, histogram):
-    pass
+    try:
+        print(f"The word {word} appears {histogram[word]} times in the source text")
+    
+    except:
+        print(f"The word {word} appears 0 times in the source text")
 
 if __name__ == "__main__":
     histogram(source_text)
     unique_words(histogram_storage)
-    # frequency(sys.argv[1])
+    frequency(sys.argv[1], histogram_storage)
+
