@@ -5,12 +5,12 @@ histogram_storage = {}
 
 def histogram(source_text):
     '''
-    splits source text into separate items then adds 1 to the key's value if true
+    splits source text into separate items then adds 1 to the key's value if repeated then prints result
     '''
     split_text = source_text.split()
     for word in split_text:
         word = word.lower()
-        if word[0].isalpha() == False: # removes non alphabetical strings by checking first index in string
+        if word[0].isalpha() == False: # skips non alphabetical strings by checking first index in string
             pass
         else:
             if word in histogram_storage:
