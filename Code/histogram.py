@@ -24,7 +24,7 @@ def histogram(source_text):
 
 def listogram(source_text):
     """
-    same has histogram function, but uses a list instead
+    same as histogram function, but uses a list instead
     """
     listogram = []
     temp_list = []
