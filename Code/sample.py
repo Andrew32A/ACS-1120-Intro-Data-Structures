@@ -14,6 +14,9 @@ def sampler(text_to_sample):
     return random_word
 
 def probability(source_text):
+    '''
+    takes in 10,000 samples and returns probability for each word
+    '''
     repeats = {}
     
     for _ in range(10000):
