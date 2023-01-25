@@ -1,6 +1,5 @@
 import histogram
 import random
-import re
 
 def sampler(text_to_sample):
     '''
@@ -21,7 +20,6 @@ def probability(source_text):
         repeats[words[i]] = words.count(words[i])
 
     return repeats
-
 
 if __name__ == "__main__":
     source_text = "one fish two fish three fish four fish"
