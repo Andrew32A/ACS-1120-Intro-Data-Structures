@@ -1,5 +1,6 @@
 """Main script, uses other modules to generate sentences."""
 from flask import Flask
+from sample import sampler
 
 
 app = Flask(__name__)
@@ -11,7 +12,9 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    return "<p>TODO: Return a word here!</p>"
+    source_text = "one fish two fish three fish four fish"
+    word = sampler(source_text)
+    return word
 
 
 if __name__ == "__main__":
