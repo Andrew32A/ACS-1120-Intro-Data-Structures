@@ -15,9 +15,8 @@ def histogram(source_text):
     splits source text into separate items then adds 1 to the key's value if repeated then prints result
     '''
     histogram_storage = {}
-    words = file_reader(source_text)
-    for word in words:
-        histogram_storage[word] = words.count(word)
+    for word in source_text:
+        histogram_storage[word] = source_text.count(word)
 
     return histogram_storage
 
@@ -68,7 +67,7 @@ def frequency(word, histogram):
         return (f"The word {word} appeared 0 times in the source text")
 
 if __name__ == "__main__":
-    source_text = "./data/corpus.txt"
+    source_text = file_reader("./data/corpus.txt")
     print(histogram(source_text))
     print(unique_words(histogram(source_text)))
     print(frequency(sys.argv[1].lower(), histogram(source_text)))

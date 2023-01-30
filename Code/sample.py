@@ -1,4 +1,5 @@
 from histogram import histogram
+from histogram import file_reader
 import random
 
 def sampler(text_to_sample):
@@ -39,8 +40,7 @@ def sentence_generator(source_text, num_of_words):
     return " ".join(word_list).capitalize() + "."
 
 if __name__ == "__main__":
-
-    source_text = "one fish two fish three fish four fish"
+    source_text = file_reader("./data/corpus.txt")
 
     sample = sampler(source_text)
     print(sample)
@@ -49,13 +49,4 @@ if __name__ == "__main__":
     for word in probability_output:
         print(f"{word}: {probability_output[word]}")
 
-
-
-
-    corpus = open("./data/corpus.txt", "r") # opens and reads dictionary on unix devices
-    words = corpus.read().split()
-    corpus.close()
-
-
-
-    print(sentence_generator(corpus, 100))
+    print(sentence_generator(source_text, 100))
