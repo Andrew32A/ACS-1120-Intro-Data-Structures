@@ -49,4 +49,4 @@ if __name__ == "__main__":
     for word in probability_output:
         print(f"{word}: {probability_output[word]}")
 
-    print(sentence_generator(source_text, 100))
+    print(sentence_generator(source_text, 10))
