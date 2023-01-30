@@ -1,26 +1,41 @@
 import sys
 import re
 
+def file_reader(source_text):
+    '''
+    reads file and returns a list of strings
+    '''
+    with open(source_text) as f:
+        words = re.findall(r"\w+", f.read().lower())
+
+    return words
+
 def histogram(source_text):
     '''
     splits source text into separate items then adds 1 to the key's value if repeated then prints result
     '''
     histogram_storage = {}
-    split_text = source_text.split()
-    for word in split_text:
-        word = word.lower()
-        if word[0].isalpha() == False: # skips non alphabetical strings by checking first index in string
-            pass
-        else:
-            if word in histogram_storage:
-                histogram_storage[word] += 1
-            else:
-                histogram_storage[word] = 1
-
-    # for word, number in histogram_storage.items():
-    #     print(f"{word}: {number}")
+    words = file_reader(source_text)
+    for word in words:
+        histogram_storage[word] = words.count(word)
 
     return histogram_storage
+
+    # old code
+
+    # split_text = source_text.split()
+    # for word in split_text:
+    #     word = word.lower()
+    #     if word[0].isalpha() == False: # skips non alphabetical strings by checking first index in string
+    #         pass
+    #     else:
+    #         if word in histogram_storage:
+    #             histogram_storage[word] += 1
+    #         else:
+    #             histogram_storage[word] = 1
+    
+    # return histogram_storage
+
 
 def listogram(source_text):
     """
@@ -53,10 +68,11 @@ def frequency(word, histogram):
         return (f"The word {word} appeared 0 times in the source text")
 
 if __name__ == "__main__":
-    source_text = "one fish two fish three fish four fish"
-
+    source_text = "./data/corpus.txt"
     print(histogram(source_text))
-    print(listogram(source_text))
     print(unique_words(histogram(source_text)))
     print(frequency(sys.argv[1].lower(), histogram(source_text)))
+
+    string_test = "one fish two fish three fish four fish"
+    print(listogram(string_test))
 

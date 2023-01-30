@@ -28,7 +28,18 @@ def probability(source_text):
 
     return repeats
 
+def sentence_generator(source_text, num_of_words):
+    '''
+    combines sampled words from source_text into a sentence
+    '''
+    word_list = []
+    for _ in range(num_of_words):
+        word_list.append(sampler(source_text))
+
+    return " ".join(word_list).capitalize() + "."
+
 if __name__ == "__main__":
+
     source_text = "one fish two fish three fish four fish"
 
     sample = sampler(source_text)
@@ -37,3 +48,14 @@ if __name__ == "__main__":
     probability_output = probability(source_text)
     for word in probability_output:
         print(f"{word}: {probability_output[word]}")
+
+
+
+
+    corpus = open("./data/corpus.txt", "r") # opens and reads dictionary on unix devices
+    words = corpus.read().split()
+    corpus.close()
+
+
+
+    print(sentence_generator(corpus, 100))
