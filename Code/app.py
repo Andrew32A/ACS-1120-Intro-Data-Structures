@@ -14,7 +14,7 @@ app = Flask(__name__)
 def home():
     """Route that returns a web page containing the generated text."""
     source_text = file_reader("./data/corpus.txt")
-    sentence = sentence_generator(source_text, 100)
+    sentence = sentence_generator(source_text, 10)
     return sentence
 
 

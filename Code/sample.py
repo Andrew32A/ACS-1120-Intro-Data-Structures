@@ -9,7 +9,7 @@ def sampler(text_to_sample):
     words_from_histogram = histogram(text_to_sample)
     random_word = random.choices(
         list(words_from_histogram.keys()), 
-        weights = words_from_histogram.values(), 
+        weights = words_from_histogram.values(),
         k = 1) [0] # changed dict to a list to avoid deprecation warning "DeprecationWarning: Sampling from a set deprecated since Python 3.9 and will be removed in a subsequent version."
 
     return random_word
