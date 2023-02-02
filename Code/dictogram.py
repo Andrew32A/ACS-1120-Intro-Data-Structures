@@ -21,16 +21,30 @@ class Dictogram(dict):
     def add_count(self, word, count=1):
         """Increase frequency count of given word by given count amount."""
         # TODO: Increase word frequency by count
+        if word.lower() in self:
+            self[word] += count
+        else:
+            self.update({word.lower(): count})
+            self.types += 1
+
+        self.tokens += 1
 
     def frequency(self, word):
         """Return frequency count of given word, or 0 if word is not found."""
         # TODO: Retrieve word frequency count
+        frequency_of_word = self.get(word, 0)
+        return frequency_of_word
 
     def sample(self):
         """Return a word from this histogram, randomly sampled by weighting
         each word's probability of being chosen by its observed frequency."""
         # TODO: Randomly choose a word based on its frequency in this histogram
+        random_word = random.choices(
+            list(self.keys()), 
+            weights = self.values(),
+            k = 1) [0] # changed dict to a list to avoid deprecation warning "DeprecationWarning: Sampling from a set deprecated since Python 3.9 and will be removed in a subsequent version."
 
+        return random_word
 
 def print_histogram(word_list):
     print()
