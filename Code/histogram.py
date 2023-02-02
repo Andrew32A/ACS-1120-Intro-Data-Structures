@@ -10,7 +10,7 @@ def file_reader(source_text):
 
     return words
 
-def histogram(source_text):
+def dictogram(source_text):
     '''
     splits source text into separate items then adds 1 to the key's value if repeated then prints result
     '''
@@ -68,9 +68,9 @@ def frequency(word, histogram):
 
 if __name__ == "__main__":
     source_text = file_reader("./data/corpus.txt")
-    print(histogram(source_text))
-    print(unique_words(histogram(source_text)))
-    print(frequency(sys.argv[1].lower(), histogram(source_text)))
+    print(dictogram(source_text))
+    print(unique_words(dictogram(source_text)))
+    print(frequency(sys.argv[1].lower(), dictogram(source_text)))
 
     string_test = "one fish two fish three fish four fish"
     print(listogram(string_test))

@@ -1,4 +1,4 @@
-from histogram import histogram
+from histogram import dictogram
 from histogram import file_reader
 import random
 
@@ -6,7 +6,7 @@ def sampler(text_to_sample):
     '''
     returns one random word from histogram
     '''
-    words_from_histogram = histogram(text_to_sample)
+    words_from_histogram = dictogram(text_to_sample)
     random_word = random.choices(
         list(words_from_histogram.keys()), 
         weights = words_from_histogram.values(),
