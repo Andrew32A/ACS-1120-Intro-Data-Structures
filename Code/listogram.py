@@ -67,11 +67,11 @@ class Listogram(list):
         each word's probability of being chosen by its observed frequency."""
         # TODO: Randomly choose a word based on its frequency in this histogram
         random_index = random.randint(0, self.tokens - 1)
-        for item in self:
-            if random_index < item[1]:
-                return item[0]
+        for i in self:
+            if random_index < i[1]:
+                return i[0]
 
-            random_index -= item[1]
+            random_index -= i[1]
 
 def print_histogram(word_list):
     print()
