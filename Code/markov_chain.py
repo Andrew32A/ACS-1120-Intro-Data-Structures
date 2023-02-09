@@ -21,7 +21,7 @@ def build_map(source_text):
     return map
 
 # generate sentence
-def generate_sentence(words, starting_point):
+def generate_sentence(words, starting_point, source_text):
     map = build_map(source_text)
     sentence = []
     sentence.append(starting_point)
@@ -34,4 +34,4 @@ def generate_sentence(words, starting_point):
 
     return " ".join(sentence).capitalize() + "."
 
-print(generate_sentence(20, starting_point_picker))
+print(generate_sentence(20, starting_point_picker, source_text))
