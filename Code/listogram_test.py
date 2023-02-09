@@ -29,7 +29,7 @@ class ListogramTest(unittest.TestCase):
 
     def test_contains(self):
         histogram = Listogram(self.fish_words)
-        # All of these words should be found
+        # All of these words should be found    
         for word in self.fish_words:
             assert word in histogram
         # None of these words should be found
