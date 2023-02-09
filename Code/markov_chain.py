@@ -32,6 +32,6 @@ def generate_sentence(words, starting_point):
         next_word = random.choice(map[word])
         sentence.append(next_word)
 
-    return sentence
+    return " ".join(sentence).capitalize() + "."
 
 print(generate_sentence(20, starting_point_picker))
