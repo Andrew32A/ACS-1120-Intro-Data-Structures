@@ -2,6 +2,7 @@
 from flask import Flask
 from sample import sentence_generator
 from histogram import file_reader
+from markov_chain import MarkovChain
 
 
 app = Flask(__name__)
@@ -14,7 +15,9 @@ app = Flask(__name__)
 def home():
     """Route that returns a web page containing the generated text."""
     source_text = file_reader("./data/corpus.txt")
-    sentence = sentence_generator(source_text, 10)
+    markov = MarkovChain(source_text)
+    sentence = markov.generate_sentence()
+    
     return sentence
 
 
