@@ -34,4 +34,5 @@ def generate_sentence(words, starting_point, source_text):
 
     return " ".join(sentence).capitalize() + "."
 
-print(generate_sentence(20, starting_point_picker, source_text))
+if __name__ == "__main__":
+    print(generate_sentence(20, starting_point_picker, source_text))
