@@ -7,17 +7,13 @@ from markov_chain import MarkovChain
 
 app = Flask(__name__)
 
-# TODO: Initialize your histogram, hash table, or markov chain here.
-# Any code placed here will run only once, when the server starts.
-
+source_text = file_reader("./data/corpus.txt")
+markov = MarkovChain(source_text)
 
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
-    source_text = file_reader("./data/corpus.txt")
-    markov = MarkovChain(source_text)
     sentence = markov.generate_sentence()
-    
     return sentence
 
 
