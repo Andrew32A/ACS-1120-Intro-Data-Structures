@@ -6,8 +6,14 @@ class MarkovChain():
     def __init__(self, source_text):
         self.source_text = source_text
         self.histogram = Dictogram(source_text)
-        self.starting_point = self.histogram.sample()
-        self.ending_point = self.histogram.sample()
+        # self.starting_point = self.generate_starting_point()
+        # self.ending_point = self.generate_ending_point()
+
+    def generate_starting_point(self):
+        return self.histogram.sample()
+
+    def generate_ending_point(self):
+        return self.histogram.sample()
 
     def build_map(self):
         words = self.source_text
@@ -23,15 +29,15 @@ class MarkovChain():
     def generate_sentence(self):
         map = self.build_map()
         sentence = []
-        sentence.append(self.starting_point)
-        next_word = self.starting_point
+        sentence.append(self.generate_starting_point())
+        next_word = self.generate_starting_point()
         count = 0
 
         for _ in range(20):
             count += 1
             next_word = random.choice(map[next_word])
             sentence.append(next_word)
-            if next_word == self.ending_point or count == 20:
+            if next_word == self.generate_ending_point or count == 20:
                 return " ".join(sentence).capitalize() + "."
                 
 if __name__ == "__main__":
