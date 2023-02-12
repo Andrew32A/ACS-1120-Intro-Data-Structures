@@ -2,9 +2,9 @@ from histogram import file_reader
 import random
 
 class MarkovChain():
-    def __init__(self, source_text, source_text_raw):
-        self.source_text = source_text # text that is already read from helper function
-        self.source_text_raw = source_text_raw # raw text that's broken down in read_source_text
+    def __init__(self, source_text):
+        self.source_text = file_reader(source_text) # text that is read from helper function and converted through re
+        self.source_text_raw = source_text # raw text that's later broken down in read_source_text method
 
     def read_source_text(self, source_text_raw):
         '''
@@ -79,7 +79,6 @@ class MarkovChain():
                     return " ".join(sentence).capitalize() + random.choice("..!?")
                 
 if __name__ == "__main__":
-    source_text_read = file_reader("./data/shrek_corpus.txt")
-    source_text_raw = "./data/shrek_corpus.txt"
-    markov = MarkovChain(source_text_read, source_text_raw)
+    source_text = "./data/shrek_corpus.txt"
+    markov = MarkovChain(source_text)
     print(markov.generate_sentence(10))

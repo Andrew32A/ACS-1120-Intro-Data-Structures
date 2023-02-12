@@ -6,7 +6,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tweet Generator</title>
 </head>
+<style>
+  body {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    background-color: #1b2028;
+  }
+
+  h1 {
+    color: #4b5975;
+  }
+
+  blockquote {
+    color: #ccccb5;
+    padding-bottom: 100px;
+  }
+</style>
 <body>
-    <blockquote>TODO: Replace this text with the sentence you generated!</blockquote>
+    <h1>Welcome to Gee Pee Tee 2000!</h1>
+    <blockquote>{{sentence}}</blockquote>
+    <button onClick="window.location.reload()">Next Quote</button>
 </body>
 </html>

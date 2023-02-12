@@ -1,23 +1,24 @@
 """Main script, uses other modules to generate sentences."""
-from flask import Flask
-from sample import sentence_generator
-from histogram import file_reader
+from flask import Flask, render_template
 from markov_chain import MarkovChain
 
 
 app = Flask(__name__)
 
-source_text_read = file_reader("./data/shrek_corpus.txt")
-source_text_raw = "./data/shrek_corpus.txt"
+source_text = "./data/shrek_corpus.txt"
 max_words = 10
-markov = MarkovChain(source_text_read, source_text_raw)
+markov = MarkovChain(source_text)
 
 @app.route("/")
 def home():
     """Route that returns a web page containing the generated text."""
     sentence = markov.generate_sentence(max_words)
-    return sentence
 
+    context = {
+        "sentence": sentence
+    }
+
+    return render_template("index.html", **context)
 
 if __name__ == "__main__":
     """To run the Flask server, execute `python app.py` in your terminal.
