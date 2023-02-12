@@ -3,17 +3,32 @@ from histogram import file_reader
 import random
 
 class MarkovChain():
-    def __init__(self, source_text):
+    def __init__(self, source_text, source_text_raw):
         self.source_text = source_text
+        self.source_text_raw = source_text_raw
         self.histogram = Dictogram(source_text)
-        # self.starting_point = self.generate_starting_point()
-        # self.ending_point = self.generate_ending_point()
+
+    def read_source_text(self, source_text_raw):
+        with open(str(source_text_raw)) as text:
+            text = text.read()
+            text = text.split()
+        return text
 
     def generate_starting_point(self):
-        return self.histogram.sample()
+        word_list = self.read_source_text(self.source_text_raw)
+        starting_words = []
+        for word in word_list:
+            if word[0].isupper() == True:
+                starting_words.append(word) 
+        return random.choice(starting_words)
 
     def generate_ending_point(self):
-        return self.histogram.sample()
+        word_list = self.read_source_text(self.source_text_raw)
+        ending_words = []
+        for word in word_list:
+            if word[-1] == ".":
+                ending_words.append(word) 
+        return random.choice(ending_words)
 
     def build_map(self):
         words = self.source_text
@@ -30,19 +45,22 @@ class MarkovChain():
         map = self.build_map()
         sentence = []
         sentence.append(self.generate_starting_point())
-        next_word = self.generate_starting_point()
+
+        ending_point = self.generate_ending_point()
+        next_word = self.histogram.sample()
         count = 0
 
         for _ in range(20):
             count += 1
             next_word = random.choice(map[next_word])
             sentence.append(next_word)
-            if next_word == self.generate_ending_point or count == 20:
+            if next_word == ending_point or count == 20:
                 return " ".join(sentence).capitalize() + "."
                 
 if __name__ == "__main__":
-    source_text = file_reader("./data/corpus.txt")
-    markov = MarkovChain(source_text)
+    source_text_read = file_reader("./data/corpus.txt")
+    source_text_raw = "./data/corpus.txt"
+    markov = MarkovChain(source_text_read, source_text_raw)
     print(markov.generate_sentence())
 
 # ***** non-oop version *****
