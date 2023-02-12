@@ -20,7 +20,7 @@ class MarkovChain():
         for word in word_list:
             if word[0].isupper() == True:
                 starting_words.append(word) 
-        return random.choice(starting_words)
+        return random.choice(starting_words).lower()
 
     def generate_ending_point(self):
         word_list = self.read_source_text(self.source_text_raw)
@@ -28,7 +28,7 @@ class MarkovChain():
         for word in word_list:
             if word[-1] == ".":
                 ending_words.append(word) 
-        return random.choice(ending_words)
+        return random.choice(ending_words).lower()
 
     def build_map(self):
         words = self.source_text
@@ -43,19 +43,22 @@ class MarkovChain():
 
     def generate_sentence(self):
         map = self.build_map()
-        sentence = []
-        sentence.append(self.generate_starting_point())
-
+        starting_point = self.generate_starting_point()
         ending_point = self.generate_ending_point()
-        next_word = self.histogram.sample()
+
+        sentence = [starting_point]
+        next_word = starting_point
         count = 0
 
-        for _ in range(20):
+        while True:
             count += 1
             next_word = random.choice(map[next_word])
             sentence.append(next_word)
-            if next_word == ending_point or count == 20:
-                return " ".join(sentence).capitalize() + "."
+            if next_word == ending_point or count == 10:
+                if count == 10:
+                    return " ".join(sentence).capitalize() + f" {ending_point}"
+                else:
+                    return " ".join(sentence).capitalize() + random.choice("..!?")
                 
 if __name__ == "__main__":
     source_text_read = file_reader("./data/shrek_corpus.txt")
