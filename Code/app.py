@@ -7,8 +7,9 @@ from markov_chain import MarkovChain
 
 app = Flask(__name__)
 
-source_text = file_reader("./data/corpus.txt")
-markov = MarkovChain(source_text)
+source_text_read = file_reader("./data/corpus.txt")
+source_text_raw = "./data/corpus.txt"
+markov = MarkovChain(source_text_read, source_text_raw)
 
 @app.route("/")
 def home():
