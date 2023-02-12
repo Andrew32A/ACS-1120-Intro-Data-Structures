@@ -58,8 +58,8 @@ class MarkovChain():
                 return " ".join(sentence).capitalize() + "."
                 
 if __name__ == "__main__":
-    source_text_read = file_reader("./data/corpus.txt")
-    source_text_raw = "./data/corpus.txt"
+    source_text_read = file_reader("./data/shrek_corpus.txt")
+    source_text_raw = "./data/shrek_corpus.txt"
     markov = MarkovChain(source_text_read, source_text_raw)
     print(markov.generate_sentence())
 
