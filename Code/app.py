@@ -6,8 +6,8 @@ from markov_chain import MarkovChain
 app = Flask(__name__)
 
 source_text = "./data/shrek_corpus.txt"
-max_words = 10
 markov = MarkovChain(source_text)
+max_words = 10
 
 @app.route("/")
 def home():

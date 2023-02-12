@@ -1,16 +1,14 @@
-from histogram import file_reader
 import random
 
 class MarkovChain():
     def __init__(self, source_text):
-        self.source_text = file_reader(source_text) # text that is read from helper function and converted through re
-        self.source_text_raw = source_text # raw text that's later broken down in read_source_text method
+        self.source_text = source_text
 
-    def read_source_text(self, source_text_raw):
+    def read_source_text(self, source_text):
         '''
         takes raw text and splits into a list
         '''
-        with open(str(source_text_raw)) as text:
+        with open(str(source_text)) as text:
             text = text.read()
             text = text.split()
         return text
@@ -19,7 +17,7 @@ class MarkovChain():
         '''
         generates a list of words that are capitalized then selects one as a starting point
         '''
-        word_list = self.read_source_text(self.source_text_raw)
+        word_list = self.read_source_text(self.source_text)
         starting_words = []
         for word in word_list:
             if word[0].isupper() == True:
@@ -30,18 +28,18 @@ class MarkovChain():
         '''
         generates a list of words that end in a period then selects one as an ending point
         '''
-        word_list = self.read_source_text(self.source_text_raw)
+        word_list = self.read_source_text(self.source_text)
         ending_words = []
         for word in word_list:
-            if word[-1] == ".":
-                ending_words.append(word) 
+            if word[-1] == "." or word[-1] == "?" or word[-1] == "!":
+                ending_words.append(word)
         return random.choice(ending_words).lower()
 
     def build_map(self):
         '''
         creates a dictionary where the key is a word, then the value is a list of the words that follow the key word
         '''
-        words = self.source_text
+        words = self.read_source_text(self.source_text)
         map = {}
         for i in range(len(words) - 1):
             next_word = words[i + 1]
@@ -73,10 +71,7 @@ class MarkovChain():
 
             sentence.append(next_word)
             if next_word == ending_point or count == max_words:
-                if count == max_words:
-                    return " ".join(sentence).capitalize() + f" {ending_point}"
-                else:
-                    return " ".join(sentence).capitalize() + random.choice("..!?")
+                return " ".join(sentence).capitalize() + f" {ending_point}"
                 
 if __name__ == "__main__":
     source_text = "./data/shrek_corpus.txt"
