@@ -4,17 +4,23 @@ import random
 
 class MarkovChain():
     def __init__(self, source_text, source_text_raw):
-        self.source_text = source_text
-        self.source_text_raw = source_text_raw
+        self.source_text = source_text # text that is already read from helper function
+        self.source_text_raw = source_text_raw # raw text that's broken down in read_source_text
         self.histogram = Dictogram(source_text)
 
     def read_source_text(self, source_text_raw):
+        '''
+        takes raw text and splits into a list
+        '''
         with open(str(source_text_raw)) as text:
             text = text.read()
             text = text.split()
         return text
 
     def generate_starting_point(self):
+        '''
+        generates a list of words that are capitalized then selects one as a starting point
+        '''
         word_list = self.read_source_text(self.source_text_raw)
         starting_words = []
         for word in word_list:
@@ -23,6 +29,9 @@ class MarkovChain():
         return random.choice(starting_words).lower()
 
     def generate_ending_point(self):
+        '''
+        generates a list of words that end in a period then selects one as an ending point
+        '''
         word_list = self.read_source_text(self.source_text_raw)
         ending_words = []
         for word in word_list:
@@ -31,6 +40,9 @@ class MarkovChain():
         return random.choice(ending_words).lower()
 
     def build_map(self):
+        '''
+        creates a dictionary where the key is a word, then the value is a list of the words that follow the key word
+        '''
         words = self.source_text
         map = {}
         for i in range(len(words) - 1):
@@ -41,7 +53,10 @@ class MarkovChain():
                 map[words[i]] = [next_word]
         return map
 
-    def generate_sentence(self):
+    def generate_sentence(self, max_words):
+        '''
+        generates a sentence based on words following the starting point and ends on the ending point
+        '''
         map = self.build_map()
         starting_point = self.generate_starting_point()
         ending_point = self.generate_ending_point()
@@ -52,10 +67,15 @@ class MarkovChain():
 
         while True:
             count += 1
-            next_word = random.choice(map[next_word])
+            # bandaid fix for when the next word has no value
+            try:
+                next_word = random.choice(map[next_word])
+            except:
+                return " ".join(sentence).capitalize() + f" {ending_point}"
+
             sentence.append(next_word)
-            if next_word == ending_point or count == 10:
-                if count == 10:
+            if next_word == ending_point or count == max_words:
+                if count == max_words:
                     return " ".join(sentence).capitalize() + f" {ending_point}"
                 else:
                     return " ".join(sentence).capitalize() + random.choice("..!?")
@@ -64,7 +84,7 @@ if __name__ == "__main__":
     source_text_read = file_reader("./data/shrek_corpus.txt")
     source_text_raw = "./data/shrek_corpus.txt"
     markov = MarkovChain(source_text_read, source_text_raw)
-    print(markov.generate_sentence())
+    print(markov.generate_sentence(10))
 
 # ***** non-oop version *****
 
