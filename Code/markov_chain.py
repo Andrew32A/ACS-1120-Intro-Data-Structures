@@ -1,4 +1,3 @@
-from dictogram import Dictogram
 from histogram import file_reader
 import random
 
@@ -6,7 +5,6 @@ class MarkovChain():
     def __init__(self, source_text, source_text_raw):
         self.source_text = source_text # text that is already read from helper function
         self.source_text_raw = source_text_raw # raw text that's broken down in read_source_text
-        self.histogram = Dictogram(source_text)
 
     def read_source_text(self, source_text_raw):
         '''
