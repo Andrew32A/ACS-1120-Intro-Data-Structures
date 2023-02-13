@@ -59,11 +59,9 @@ class MarkovChain():
 
         sentence = [starting_point]
         next_word = starting_point
-        count = 0
         max_words -= 2 # offset for starting and ending words being appended to sentence
 
-        while True:
-            count += 1
+        for count, _ in enumerate(map, start=1):
             # try catch except for rare case when the next word has no value inside of map
             try:
                 next_word = random.choice(map[next_word])
