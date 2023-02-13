@@ -22,7 +22,7 @@ class MarkovChain():
         for word in word_list:
             if word[0].isupper() == True:
                 starting_words.append(word) 
-        return random.choice(starting_words).lower()
+        return random.choice(starting_words)
 
     def generate_ending_point(self):
         '''
@@ -33,7 +33,7 @@ class MarkovChain():
         for word in word_list:
             if word[-1] == "." or word[-1] == "?" or word[-1] == "!":
                 ending_words.append(word)
-        return random.choice(ending_words).lower()
+        return random.choice(ending_words)
 
     def build_map(self):
         '''
@@ -60,18 +60,19 @@ class MarkovChain():
         sentence = [starting_point]
         next_word = starting_point
         count = 0
+        max_words -= 2 # offset for ending word being appended to sentence
 
         while True:
             count += 1
-            # bandaid fix for when the next word has no value
+            # try catch except for rare case when the next word has no value inside of map
             try:
                 next_word = random.choice(map[next_word])
             except:
-                return " ".join(sentence).capitalize() + f" {ending_point}"
+                return " ".join(sentence) + f" {ending_point}"
 
             sentence.append(next_word)
             if next_word == ending_point or count == max_words:
-                return " ".join(sentence).capitalize() + f" {ending_point}"
+                return " ".join(sentence) + f" {ending_point}"
                 
 if __name__ == "__main__":
     source_text = "./data/shrek_corpus.txt"
