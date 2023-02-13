@@ -26,7 +26,7 @@ class MarkovChain():
 
     def generate_ending_point(self):
         '''
-        generates a list of words that end in a period then selects one as an ending point
+        generates a list of words that end in a . ! or ? then selects one as an ending point
         '''
         word_list = self.source_text
         ending_words = []
@@ -60,7 +60,7 @@ class MarkovChain():
         sentence = [starting_point]
         next_word = starting_point
         count = 0
-        max_words -= 2 # offset for ending word being appended to sentence
+        max_words -= 2 # offset for starting and ending words being appended to sentence
 
         while True:
             count += 1
