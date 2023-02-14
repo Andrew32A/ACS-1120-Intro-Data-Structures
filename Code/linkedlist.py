@@ -54,25 +54,50 @@ class LinkedList:
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(n) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
-
+        count = 0
+        current_node = self.head
+        while current_node is not None:
+            count += 1
+            current_node = current_node.next
+        return count
+        
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Create new node to hold given item
         # TODO: If self.is_empty() == True set the head and the tail to the new node
         # TODO: Else append node after tail
+        node = Node(item)
+        if self.is_empty() == True:
+            self.head = node
+            self.tail = node
+        else:
+            self.tail.next = node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Create new node to hold given item
         # TODO: Prepend node before head, if it exists
+        node = Node(item)
+        if self.is_empty():
+            self.head = node
+            self.tail = node
+        else:
+            node.next = self.head
+            self.head = node
 
     def find(self, matcher):
         """Return an item from this linked list if it is present.
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes to find item, if present return True otherwise False
+        node = self.head
+        while node is not None:
+            if node.data == matcher: # not sure why this isn't working
+                return True
+            node = node.next
+        return False
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
