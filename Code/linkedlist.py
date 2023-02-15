@@ -95,7 +95,7 @@ class LinkedList:
         # TODO: Loop through all nodes to find item, if present return True otherwise False
         node = self.head
         while node is not None:
-            if node.data == matcher: # not sure why this isn't working
+            if matcher(node.data):
                 return True
             node = node.next
         return False
@@ -130,7 +130,14 @@ class LinkedList:
         else:
             raise ValueError('Item not found: {}'.format(item))
 
-
+    def replace(self, original_node, new_node):
+        node = self.head
+        while node is not None:
+            if original_node in node.data:
+                node.data = new_node
+                break
+            node = node.next
+            
 def test_linked_list():
     ll = LinkedList()
     print('list: {}'.format(ll))
