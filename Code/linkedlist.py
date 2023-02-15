@@ -73,6 +73,7 @@ class LinkedList:
             self.tail = node
         else:
             self.tail.next = node
+            self.tail = node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
