@@ -92,7 +92,7 @@ class HashTable(object):
         for node in nodes:
             if node[0] == key:
                 return node[1]
-            raise KeyError(f'Key not found: {key}')
+        raise KeyError(f'Key not found: {key}')
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
@@ -108,7 +108,10 @@ class HashTable(object):
         node = bucket.replace(bucket, key)
         if node is not None:
             bucket.delete(node)
-        bucket.append((key, value))
+            bucket.append((key, value))
+
+        else:
+            self.buckets[self._bucket_index(key)].append((key,value))    
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
