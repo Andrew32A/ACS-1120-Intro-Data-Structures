@@ -133,9 +133,9 @@ class LinkedList:
     def replace(self, original_node, new_node):
         node = self.head
         while node is not None:
-            if original_node in node.data:
+            if node.data == original_node:
                 node.data = new_node
-                break
+                return
             node = node.next
             
 def test_linked_list():

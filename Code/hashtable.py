@@ -90,6 +90,7 @@ class HashTable(object):
         bucket_index = self._bucket_index(key)
         nodes = self.buckets[bucket_index].items()
         for node in nodes:
+            # print(f"Keys in bucket {bucket_index}: {[node[1] for node in nodes]}")
             if node[0] == key:
                 return node[1]
         raise KeyError(f'Key not found: {key}')
@@ -101,17 +102,14 @@ class HashTable(object):
         # TODO: Check if key-value entry exists in bucket
         # TODO: If found, update value associated with given key
         # TODO: Otherwise, insert given key-value entry into bucket
-
         bucket_index = self._bucket_index(key)
         bucket = self.buckets[bucket_index]
 
-        node = bucket.replace(bucket, key)
-        if node is not None:
-            bucket.delete(node)
-            bucket.append((key, value))
-
-        else:
-            self.buckets[self._bucket_index(key)].append((key,value))    
+        for bucket_key, bucket_value in bucket.items():
+            if bucket_key == key:
+                bucket.replace((bucket_key, bucket_value), (key, value))
+                return
+        bucket.append((key, value))
 
     def delete(self, key):
         """Delete the given key from this hash table, or raise KeyError.
@@ -124,12 +122,11 @@ class HashTable(object):
         bucket_index = self._bucket_index(key)
         bucket = self.buckets[bucket_index]
 
-        nodes = self.buckets[bucket_index].items()
-        for node in nodes:
-            if node[0] == key:
-                bucket.delete(node)
+        for bucket_key, bucket_value in bucket.items():
+            if bucket_key == key:
+                bucket.delete((bucket_key, bucket_value))
                 return
-            raise KeyError('Key not found: {}'.format(key))
+        raise KeyError('Key not found: {}'.format(key))
 
 def test_hash_table():
     ht = HashTable()
