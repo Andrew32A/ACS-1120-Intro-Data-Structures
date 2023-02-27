@@ -13,27 +13,34 @@ class MarkovChain():
             text = text.split()
         return text
 
-    def generate_starting_point(self):
+    def generate_starting_point(self, order):
         '''
-        generates a list of words that are capitalized then selects one as a starting point
+        generates a tuple of words that are capitalized then selects one as a starting point
         '''
-        word_list = self.source_text
-        starting_words = []
-        for word in word_list:
-            if word[0].isupper() == True:
-                starting_words.append(word) 
-        return random.choice(starting_words)
+        words = self.source_text
+        starting_tuples = []
+        for i in range(len(words) - order):
+            if words[i][0].isupper():
+                starting_tuples.append(tuple(words[i:i+order]))
+        starting_tuple = random.choice(starting_tuples)
+        return ' '.join(starting_tuple)
 
-    def generate_ending_point(self):
+    def generate_ending_point(self, order):
         '''
-        generates a list of words that end in a . ! or ? then selects one as an ending point
+        generates a list of words that end in a . ! or ? in the last position of the n-gram then selects one as an ending point
         '''
-        word_list = self.source_text
+        words = self.source_text
         ending_words = []
-        for word in word_list:
-            if word[-1] == "." or word[-1] == "?" or word[-1] == "!":
-                ending_words.append(word)
-        return random.choice(ending_words)
+        for i in range(len(words) - order):
+            if words[i+order-1][-1] in [".", "?", "!"]:
+                ending_ngram = words[i:i+order-1]
+                ending_word = words[i+order-1]
+                ending_words.append(" ".join(ending_ngram + [ending_word]))
+        chosen_ending_ngram = random.choice(ending_words)
+        ending_word = chosen_ending_ngram.split()[-1]
+        ending_ngram = chosen_ending_ngram.split()[:-1]
+        return " ".join(ending_ngram) + " " + ending_word
+
 
     def build_map(self, order):
         '''
@@ -43,21 +50,20 @@ class MarkovChain():
         map = {}
         for i in range(len(words) - order):
             key_ngram = tuple(words[i:i+order])
-            next_words = words[i:i+order]
+            next_words = words[i+order]
             if key_ngram in map:
                 map[key_ngram].append(next_words)
             else:
                 map[key_ngram] = [next_words]
-        print(map)
         return map
 
-    def generate_sentence(self, max_words):
+    def generate_sentence(self, max_words, order):
         '''
         generates a sentence based on words following the starting point and ends on the ending point
         '''
-        map = self.build_map(2)
-        starting_point = self.generate_starting_point()
-        ending_point = self.generate_ending_point()
+        map = self.build_map(order)
+        starting_point = self.generate_starting_point(order)
+        ending_point = self.generate_ending_point(order)
 
         sentence = [starting_point]
         next_word = starting_point
@@ -77,4 +83,4 @@ class MarkovChain():
 if __name__ == "__main__":
     source_text = "./data/shrek_corpus.txt"
     markov = MarkovChain(source_text)
-    print(markov.generate_sentence(10))
+    print(markov.generate_sentence(10, 2))
