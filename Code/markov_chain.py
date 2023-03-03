@@ -1,4 +1,5 @@
 import random
+import re
 
 class MarkovChain():
     def __init__(self, source_text):
@@ -70,7 +71,8 @@ class MarkovChain():
 
             sentence.append(next_word)
             if next_word == ending_point or count == max_words:
-                return " ".join(sentence) + f" {ending_point}"
+                completed_sentence = " ".join(sentence) + f" {ending_point}"
+                return re.sub(r"[\(\)\{\}]", "", completed_sentence)
                 
 if __name__ == "__main__":
     source_text = "./data/shrek_corpus.txt"
