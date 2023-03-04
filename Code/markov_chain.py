@@ -73,6 +73,7 @@ class MarkovChain():
             if next_word == ending_point or count == max_words:
                 completed_sentence = " ".join(sentence) + f" {ending_point}"
                 return re.sub(r"[\(\)\{\}]", "", completed_sentence)
+                # return re.sub(r"\s*[.:•]\s*|\b(?:[A-Z]{2,}|[A-Z]+\b(?!\.[A-Z]))\b|[()\{\}]|\s{2,}", "", completed_sentence)
                 
 if __name__ == "__main__":
     source_text = "./data/shrek_corpus.txt"
